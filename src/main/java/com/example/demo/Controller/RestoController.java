@@ -22,7 +22,7 @@ public class RestoController {
 	@Autowired
 	RestoService restoService;
 
-	@GetMapping("/")
+	@GetMapping("/all")
 	public List<Resto> findAll() {
 		return restoService.findAll();
 	}
@@ -31,9 +31,21 @@ public class RestoController {
 	public Resto findById(@PathVariable int id) {
 		return restoService.findById(id);
 	}
+	
+	@GetMapping("/filter/{ville}/{zone}")
+	public List<Resto> findRestoByVilleAndZone(@PathVariable String ville,@PathVariable String zone) {
+		
+		return restoService.findRestoByVilleAndZone(ville, zone);
+	}
+	
+	@GetMapping("/filter2/{ville}/{zone}/{serie}")
+	public List<Resto> findRestoByVilleAndZoneAndSerie(@PathVariable String ville,@PathVariable String zone,@PathVariable String serie) {
+		
+		return restoService.findRestoByVilleAndZoneAndSerie(ville,zone, serie);
+	}
 
 
-	@PostMapping("/save")
+	@PostMapping("/save")	
 	public Resto save(@RequestBody Resto t) {
 		return restoService.save(t);
 	}

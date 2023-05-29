@@ -50,10 +50,11 @@ public class ZoneService implements IDao<Zone> {
 		return zoneRepository.save(t);
 	}
 
-	@Override
-	public void delete(Zone t) {
-
-		zoneRepository.delete(t);
+	
+	public void delete(int t) {
+		
+		
+		zoneRepository.deleteById(t);;
 	}
 
 	@Override
@@ -61,6 +62,12 @@ public class ZoneService implements IDao<Zone> {
 
 		zoneRepository.save(t);
 
-	};
+	}
+
+	@Override
+	public void delete(Zone t) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -24,6 +24,16 @@ public class RestoService implements IDao<Resto> {
 		return restoRepository.findAll();
 	}
 	
+	public List<Resto> findRestoByVilleAndZone(String ville, String zone) {
+		
+		return restoRepository.findRestoByVilleAndZone(ville, zone);
+	}
+	
+public List<Resto> findRestoByVilleAndZoneAndSerie(String ville, String zone,String serie) {
+		
+		return restoRepository.findRestoByVilleAndZoneAndSerie(ville, zone,serie);
+	}
+	
 	public List<Resto> findByZone(String zone){
 		
 		Zone zone1 = zoneService.findByNom(zone);

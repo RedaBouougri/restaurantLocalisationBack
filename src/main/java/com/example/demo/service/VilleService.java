@@ -54,6 +54,26 @@ public class VilleService implements IDao<Ville> {
 
 		villeRepository.delete(t);
 	}
+	
+	public void deleteById(int t) {
+		List<Zone> z1 = zoneRepository.findByVilleId(t);
+		for (Zone z : z1) {
+
+			zoneRepository.delete(z);
+		}
+
+		villeRepository.deleteById(t);
+		
+	}
+	
+		public void update2(int t) {
+
+		
+		villeRepository.save(findById(t));
+		
+	}
+		
+		
 
 	@Override
 	public void update(Ville t) {

@@ -2,7 +2,9 @@ package com.example.demo.entity;
 
 import java.util.Date;
 
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.example.demo.security.springjwt.models.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -27,16 +31,18 @@ public class Resto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	private String image;
 	private String nom;
 	private String adress;
 	private double lang;
 	private double latitude;
 	private String rank;
-	@Temporal(TemporalType.TIME)
-	private Date heureOpen;
-	@Temporal(TemporalType.TIME)
-	private Date heureClose;
+	
+	 
+	private String heureOpen;
+	
+	 
+	private String heureClose;
 	private String jourOuverture;
 	
 	@OneToMany(mappedBy = "resto")
@@ -60,6 +66,29 @@ public class Resto {
 	inverseJoinColumns = @JoinColumn(name = "specialite_id"))
 	private List<Specialite> specialite;
 	
+	 public String getSpecialiteNames() {
+		    if (specialite != null) {
+		      return specialite.stream()
+		              .map(Specialite::getNom)
+		              .collect(Collectors.joining(", "));
+		    }
+		    return "";
+		  }
+	 
+	 
+	
+	public String getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -97,16 +126,16 @@ public class Resto {
 		this.rank = ranf;
 	}
 
-	public Date getHeureOpen() {
+	public String getHeureOpen() {
 		return heureOpen;
 	}
-	public void setHeureOpen(Date heureOpen) {
+	public void setHeureOpen(String heureOpen) {
 		this.heureOpen = heureOpen;
 	}
-	public Date getHeureClose() {
+	public String getHeureClose() {
 		return heureClose;
 	}
-	public void setHeureClose(Date heureClose) {
+	public void setHeureClose(String heureClose) {
 		this.heureClose = heureClose;
 	}
 	public String getJourOuverture() {

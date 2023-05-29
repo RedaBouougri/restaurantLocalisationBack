@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entity.Specialite;
 import com.example.demo.entity.Ville;
 import com.example.demo.service.VilleService;
 
@@ -24,7 +25,7 @@ public class VilleController {
 	VilleService villeService;
 	
 	
-	@GetMapping("/")
+	@GetMapping("/all")
 	public List<Ville> findAll() {
 		return villeService.findAll();
 	}
@@ -34,21 +35,41 @@ public class VilleController {
 		return villeService.findById(id);
 	}
 	
+	@GetMapping("/findbynom/{nom}")
+	public Ville findByNom(@PathVariable String nom) {
+		return villeService.findByNom(nom);
+	}
+	
 	@PostMapping("/save")
 	public Ville save(@RequestBody Ville t) {
 		return villeService.save(t);
 	}
 
-	@DeleteMapping("/delete")
+	/*@DeleteMapping("/delete")
 	public void delete(@RequestBody Ville t) {
 		villeService.delete(t);
-	}
+	}*/
 
-	@PutMapping("/update")
+	/*@PutMapping("/update")
 	public void update(@RequestBody Ville t) {
 		villeService.update(t);
-	}
+	}*/
 	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable int id) {
+		villeService.deleteById(id);
+	}
+
+	@PutMapping("/update/{id}")
+	public Ville update(@PathVariable int id, @RequestBody Specialite sp) {
+		Ville existingville = villeService.findById(id);
+        if (existingville!=null) {
+        	existingville.setNom(sp.getNom());
+            return villeService.save(existingville);
+        }
+        return null;
+		
+	}
 	
 	
 	
